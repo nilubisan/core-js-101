@@ -20,12 +20,12 @@
  *    console.log(r.height);      // => 20
  *    console.log(r.getArea());   // => 200
  */
-// eslint-disable-next-line max-classes-per-file
+
 function Rectangle(width, height) {
   const rectangle = {};
   rectangle.width = width;
   rectangle.height = height;
-  rectangle.getArea = function () {
+  rectangle.getArea = function getArea() {
     return this.width * this.height;
   };
   return rectangle;
@@ -119,115 +119,32 @@ function fromJSON(proto, json) {
  */
 
 const cssSelectorBuilder = {
-  MyCssSelector: class {
-    constructor(props) {
-      Object.entries(props).forEach(([key, value]) => {
-        this[key](value);
-        return this;
-      });
-    }
-
-    element(value) {
-      if (this.elementName) throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
-      this.elementName = value;
-      this.isSequenceRight();
-      return this;
-    }
-
-    id(value) {
-      if (this.idName) throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
-      this.idName = `#${value}`;
-      this.isSequenceRight();
-      return this;
-    }
-
-    class(value) {
-      this.className = this.className ? `${this.className}.${value}` : `.${value}`;
-      this.isSequenceRight();
-      return this;
-    }
-
-    attr(value) {
-      this.attrName = this.attrName ? `[${this.attrName}][${value}]` : `[${value}]`;
-      this.isSequenceRight();
-      return this;
-    }
-
-    pseudoClass(value) {
-      this.pseudoClassName = this.pseudoClassName ? `${this.pseudoClassName}:${value}` : `:${value}`;
-      this.isSequenceRight();
-      return this;
-    }
-
-    pseudoElement(value) {
-      if (this.pseudoElementName) throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
-      this.pseudoElementName = `::${value}`;
-      this.isSequenceRight();
-      return this;
-    }
-
-    stringify() {
-      let resultStr = '';
-      Object.values(this).forEach((value) => { resultStr += value; });
-      return resultStr;
-    }
-
-    isSequenceRight() {
-      const obj = {
-        elementName: 1,
-        idName: 2,
-        className: 3,
-        attrName: 4,
-        pseudoClassName: 5,
-        pseudoElementName: 6,
-      };
-      const numberedKeyArr = Object.keys(this).map((el) => obj[el]);
-      numberedKeyArr.reduce((prev, curr) => {
-        if (prev > curr) {
-          throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
-        } else return curr;
-      });
-    }
+  element(/* value */) {
+    throw new Error('Not implemented');
   },
 
-  CombinedSelector: class {
-    constructor(selector1, combinator, selector2) {
-      this.selector1 = selector1.stringify();
-      this.selector2 = selector2.stringify();
-      this.combinator = combinator;
-    }
-
-    stringify() {
-      return `${this.selector1} ${this.combinator} ${this.selector2}`;
-    }
+  id(/* value */) {
+    throw new Error('Not implemented');
   },
 
-  element(value) {
-    return new this.MyCssSelector({ element: value });
+  class(/* value */) {
+    throw new Error('Not implemented');
   },
 
-  id(value) {
-    return new this.MyCssSelector({ id: value });
+  attr(/* value */) {
+    throw new Error('Not implemented');
   },
 
-  class(value) {
-    return new this.MyCssSelector({ class: value });
+  pseudoClass(/* value */) {
+    throw new Error('Not implemented');
   },
 
-  attr(value) {
-    return new this.MyCssSelector({ attr: value });
+  pseudoElement(/* value */) {
+    throw new Error('Not implemented');
   },
 
-  pseudoClass(value) {
-    return new this.MyCssSelector({ pseudoClass: value });
-  },
-
-  pseudoElement(value) {
-    return new this.MyCssSelector({ pseudoElement: value });
-  },
-
-  combine(selector1, combinator, selector2) {
-    return new this.CombinedSelector(selector1, combinator, selector2);
+  combine(/* selector1, combinator, selector2 */) {
+    throw new Error('Not implemented');
   },
 };
 
