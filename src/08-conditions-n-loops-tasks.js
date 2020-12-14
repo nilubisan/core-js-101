@@ -27,8 +27,13 @@
  *  21 => 'Fizz'
  *
  */
-function getFizzBuzz(/* num */) {
-  throw new Error('Not implemented');
+function getFizzBuzz(num) {
+  let result;
+  if (num % 3 === 0 && num % 5 === 0) result = 'FizzBuzz';
+  else if (num % 3 === 0) result = 'Fizz';
+  else if (num % 5 === 0) result = 'Buzz';
+  else result = num;
+  return result;
 }
 
 
@@ -43,8 +48,8 @@ function getFizzBuzz(/* num */) {
  *   5  => 120
  *   10 => 3628800
  */
-function getFactorial(/* n */) {
-  throw new Error('Not implemented');
+function getFactorial(n) {
+  return n === 1 ? 1 : n * getFactorial(n - 1);
 }
 
 
@@ -60,8 +65,12 @@ function getFactorial(/* n */) {
  *   5,10  =>  45 ( = 5+6+7+8+9+10 )
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
-function getSumBetweenNumbers(/* n1, n2 */) {
-  throw new Error('Not implemented');
+function getSumBetweenNumbers(n1, n2) {
+  let counter = n1;
+  for (let i = n1 + 1; i <= n2; i += 1) {
+    counter += i;
+  }
+  return counter;
 }
 
 
@@ -80,8 +89,11 @@ function getSumBetweenNumbers(/* n1, n2 */) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isTriangle(a, b, c) {
+  let result;
+  if ((a + b > c) && (a + c > b) && (b + c > a)) result = true;
+  else result = false;
+  return result;
 }
 
 
@@ -117,8 +129,15 @@ function isTriangle(/* a, b, c */) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
+function doRectanglesOverlap(rect1, rect2) {
+  let areOverlaped;
+  if (rect2.left > (rect1.left + rect1.width)
+    || (rect2.left + rect2.width) < rect1.left
+    || rect2.top > (rect1.top + rect1.height)
+    || (rect2.top + rect2.height) < rect1.top) {
+    areOverlaped = false;
+  } else areOverlaped = true;
+  return areOverlaped;
 }
 
 
@@ -164,8 +183,19 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  let firstSingleChar;
+  for (let i = 0; i < str.length; i += 1) {
+    let concatedStr;
+    if (i === 0) concatedStr = str.slice((i + 1));
+    else if (i === str[str.length - 1]) concatedStr = str.slice(0);
+    else concatedStr = str.slice(0, i) + str.slice((i + 1));
+    if (concatedStr.indexOf(str[i]) === -1) {
+      firstSingleChar = str[i];
+      break;
+    }
+  }
+  return firstSingleChar;
 }
 
 
@@ -203,13 +233,19 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * @return {string}
  *
  * @example:
- * 'The quick brown fox jumps over the lazy dog' => 'god yzal eht revo spmuj xof nworb kciuq ehT'
+ * 'The quick brown foxes jumps over the lazy dog' => 'god yzal eht revo spmuj xof nworb kciuq ehT'
  * 'abracadabra' => 'arbadacarba'
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  const reversed = Array.from(str);
+  for (let i = 0, j = (reversed.length - 1); i < Math.floor(reversed.length / 2); i += 1, j -= 1) {
+    const temp = reversed[j];
+    reversed[j] = reversed[i];
+    reversed[i] = temp;
+  }
+  return reversed.join('');
 }
 
 
@@ -225,8 +261,15 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  let number = num;
+  let reversed = 0;
+  while (number !== 0) {
+    reversed *= 10;
+    reversed += number % 10;
+    number = Math.floor(number / 10);
+  }
+  return reversed;
 }
 
 
@@ -268,8 +311,18 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  let number = num;
+  let temp = 0;
+  while (number >= 10) {
+    while (number !== 0) {
+      temp += number % 10;
+      number = Math.floor(number / 10);
+    }
+    number = temp;
+    temp = 0;
+  }
+  return number;
 }
 
 

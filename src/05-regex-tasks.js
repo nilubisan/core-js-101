@@ -32,7 +32,7 @@
  * @return {RegExp}
  */
 function getRegexForGuid() {
-  throw new Error('Not implemented');
+  return new RegExp(/\{[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\}/, 'i');
 }
 
 
@@ -42,8 +42,8 @@ function getRegexForGuid() {
  *
  * Match :                 Do not match:
  * -----------             --------------
- *  'pit'                     ' pt'
- *  'spot'                    'Pot'
+ *  'pit'                    /* ' pt'
+ *  'spot'                  /*  'Pot'
  *  'spate'                   'peat'
  *  'slap two'                'part'
  *  'respite'
@@ -54,20 +54,20 @@ function getRegexForGuid() {
  *
  */
 function getRegexForPitSpot() {
-  throw new Error('Not implemented');
+  return new RegExp(/\w*p.{1}t/);
 }
 
 
 /**
  * Returns the password validator regex.
- * Regex will validate a password to make sure it meets the follwing criteria:
+ * Regex will validate a password to make sure it meets the following criteria:
  *  - At least specified characters long (argument minLength)
  *  - Contains a lowercase letter
  *  - Contains an uppercase letter
  *  - Contains a number
  *  - Valid passwords will only be alphanumeric characters (+ underscore).
  *
- * @param {number} minLength
+ * @param {number} _minLength
  * @return {Regex}
  *
  * @example
@@ -78,8 +78,9 @@ function getRegexForPitSpot() {
  *   'PASSW0RD'.match(validator)  => false
  *   'Pa55'.match(validator) => false
  */
-function getPasswordValidator(/* minLength */) {
-  throw new Error('Not implemented');
+function getPasswordValidator(minLength) {
+  // eslint-disable-next-line no-useless-escape
+  return new RegExp(`^[^\\s](?=\\w*[a-z])(?=\\w*[A-Z])(?=\\w*[0-9])[a-zA-Z0-9]{${minLength},}[^\\s]$`);
 }
 
 
